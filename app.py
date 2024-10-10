@@ -15,7 +15,7 @@ def user_input_features():
     Bedrooms = st.sidebar.slider('Number of Bedrooms', 1, 10, 3)
     Bathrooms = st.sidebar.slider('Number of Bathrooms', 1, 5, 2)
     Stories = st.sidebar.slider('Number of Stories', 1, 4, 2)
-    Mainroad = st.sidebar.selectbox('Mainroad', ['yes', 'no'])
+    #Mainroad = st.sidebar.selectbox('Mainroad', ['yes', 'no'])
     Guestroom = st.sidebar.selectbox('Guestroom', ['yes', 'no'])
     Basement = st.sidebar.selectbox('Basement', ['yes', 'no'])
     Hotwaterheating = st.sidebar.selectbox('Hotwaterheating', ['yes', 'no'])
@@ -25,19 +25,18 @@ def user_input_features():
     Furnishingstatus = st.sidebar.selectbox('Furnishing Status', ['furnished', 'semi-furnished', 'unfurnished'])
 
     data = {
-        'Area': Area,
-        'Bedrooms': Bedrooms,
-        'Bathrooms': Bathrooms,
-        'Stories': Stories,
-        'Mainroad': 1 if Mainroad == 'yes' else 0,
-        'Guestroom': 1 if Guestroom == 'yes' else 0,
-        'Basement': 1 if Basement == 'yes' else 0,
-        'Hotwaterheating': 1 if Hotwaterheating == 'yes' else 0,
-        'Airconditioning': 1 if Airconditioning == 'yes' else 0,
-        'Parking': Parking,
-        'Prefarea': 1 if Prefarea == 'yes' else 0,
-        'furnishingstatus_semi-furnished': 1 if Furnishingstatus == 'semi-furnished' else 0,
-        'furnishingstatus_unfurnished': 1 if Furnishingstatus == 'unfurnished' else 0
+        'area': Area,
+        'bedrooms': Bedrooms,
+        'bathrooms': Bathrooms,
+        'stories': Stories,
+        #'mainroad': 1 if Mainroad == 'yes' else 0,
+        'guestroom': 1 if Guestroom == 'yes' else 0,
+        'basement': 1 if Basement == 'yes' else 0,
+        'hotwaterheating': 1 if Hotwaterheating == 'yes' else 0,
+        'airconditioning': 1 if Airconditioning == 'yes' else 0,
+        'parking': Parking,
+        'prefarea': 1 if Prefarea == 'yes' else 0,
+        'furnishingstatus': Furnishingstatus
     }
 
     features = pd.DataFrame(data, index=[0])
@@ -46,8 +45,19 @@ def user_input_features():
 # Get user input
 input_df = user_input_features()
 
-# Load and preprocess dataset (same steps as before)
+# Load and preprocess dataset
 data = pd.read_csv('Housing.csv')
+
+# Convert categorical variables to numerical
+#data['mainroad'] = data['mainroad'].map({'yes': 1, 'no': 0})
+data['guestroom'] = data['guestroom'].map({'yes': 1, 'no': 0})
+data['basement'] = data['basement'].map({'yes': 1, 'no': 0})
+data['hotwaterheating'] = data['hotwaterheating'].map({'yes': 1, 'no': 0})
+data['airconditioning'] = data['airconditioning'].map({'yes': 1, 'no': 0})
+data['prefarea'] = data['prefarea'].map({'yes': 1, 'no': 0})
+data['furnishingstatus'] = data['furnishingstatus'].map({'furnished': 1, 'semi-furnished': 0.5, 'unfurnished': 0})
+
+# Prepare features and target variable
 X = data.drop(columns=['price'])
 y = data['price']
 
