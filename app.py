@@ -15,7 +15,6 @@ def user_input_features():
     Bedrooms = st.sidebar.slider('Number of Bedrooms', 1, 10, 3)
     Bathrooms = st.sidebar.slider('Number of Bathrooms', 1, 5, 2)
     Stories = st.sidebar.slider('Number of Stories', 1, 4, 2)
-    #Mainroad = st.sidebar.selectbox('Mainroad', ['yes', 'no'])
     Guestroom = st.sidebar.selectbox('Guestroom', ['yes', 'no'])
     Basement = st.sidebar.selectbox('Basement', ['yes', 'no'])
     Hotwaterheating = st.sidebar.selectbox('Hotwaterheating', ['yes', 'no'])
@@ -29,14 +28,14 @@ def user_input_features():
         'bedrooms': Bedrooms,
         'bathrooms': Bathrooms,
         'stories': Stories,
-        #'mainroad': 1 if Mainroad == 'yes' else 0,
         'guestroom': 1 if Guestroom == 'yes' else 0,
         'basement': 1 if Basement == 'yes' else 0,
         'hotwaterheating': 1 if Hotwaterheating == 'yes' else 0,
         'airconditioning': 1 if Airconditioning == 'yes' else 0,
         'parking': Parking,
         'prefarea': 1 if Prefarea == 'yes' else 0,
-        'furnishingstatus': Furnishingstatus
+        # Convert 'furnishingstatus' using the same mapping as the training data
+        'furnishingstatus': 1 if Furnishingstatus == 'furnished' else 0.5 if Furnishingstatus == 'semi-furnished' else 0
     }
 
     features = pd.DataFrame(data, index=[0])
@@ -49,7 +48,6 @@ input_df = user_input_features()
 data = pd.read_csv('Housing.csv')
 
 # Convert categorical variables to numerical
-#data['mainroad'] = data['mainroad'].map({'yes': 1, 'no': 0})
 data['guestroom'] = data['guestroom'].map({'yes': 1, 'no': 0})
 data['basement'] = data['basement'].map({'yes': 1, 'no': 0})
 data['hotwaterheating'] = data['hotwaterheating'].map({'yes': 1, 'no': 0})
