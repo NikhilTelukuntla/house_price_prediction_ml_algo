@@ -55,6 +55,16 @@ data['airconditioning'] = data['airconditioning'].map({'yes': 1, 'no': 0})
 data['prefarea'] = data['prefarea'].map({'yes': 1, 'no': 0})
 data['furnishingstatus'] = data['furnishingstatus'].map({'furnished': 1, 'semi-furnished': 0.5, 'unfurnished': 0})
 
+# Drop the 'mainroad' column if it's still present in the dataset (if it's unnecessary)
+if 'mainroad' in data.columns:
+    data = data.drop(columns=['mainroad'])
+
+# Check for any remaining string columns in the dataset
+non_numeric_columns = data.select_dtypes(include=['object']).columns
+if len(non_numeric_columns) > 0:
+    st.write(f"Non-numeric columns found in the dataset: {non_numeric_columns}")
+    st.stop()
+
 # Prepare features and target variable
 X = data.drop(columns=['price'])
 y = data['price']
