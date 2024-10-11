@@ -55,7 +55,7 @@ data['airconditioning'] = data['airconditioning'].map({'yes': 1, 'no': 0})
 data['prefarea'] = data['prefarea'].map({'yes': 1, 'no': 0})
 data['furnishingstatus'] = data['furnishingstatus'].map({'furnished': 1, 'semi-furnished': 0.5, 'unfurnished': 0})
 
-# Drop the 'mainroad' column if it's still present in the dataset (if it's unnecessary)
+# Drop the 'mainroad' column if it's still present in the dataset
 if 'mainroad' in data.columns:
     data = data.drop(columns=['mainroad'])
 
