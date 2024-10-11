@@ -57,8 +57,8 @@ The House Price Prediction app allows users to input various features about a ho
 
 The dataset used for training the model is a housing dataset, containing features like area, number of bedrooms, bathrooms, etc. Here's a sample of the dataset structure:
 
-```csv
-price,area,bedrooms,bathrooms,stories,guestroom,basement,hotwaterheating,airconditioning,parking,prefarea,furnishingstatus.
+<!-- ```csv
+price,area,bedrooms,bathrooms,stories,guestroom,basement,hotwaterheating,airconditioning,parking,prefarea,furnishingstatus. -->
 
 
 ### 8. **Model**
